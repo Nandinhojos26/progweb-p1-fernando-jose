@@ -1,11 +1,12 @@
-export class Cliente {
+import { Pessoa } from './Pessoa.js';
+
+export class Cliente extends Pessoa {
   constructor(id, nome, telefone) {
-    this.id = id;
-    this.nome = nome;
+    super(id, nome); // Chama o construtor da classe mae
     this.telefone = telefone;
   }
 
   exibirResumo() {
-    return `Cliente: ${this.nome} , Contato: ${this.telefone}`;
+    return `Cliente: ${this.nome} | Contato: ${this.telefone}`;
   }
 }
