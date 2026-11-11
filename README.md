@@ -46,6 +46,20 @@ O programa roda e exibe a saída diretamente no terminal.
 1. Acesse a página do repositório no GitHub.
 2. Clique em Code e Download ZIP.
 
+## Domínio do Projeto
+
+O projeto consiste em um sistema de gerenciamento de assistência técnica e loja de celulares. A aplicação tem como objetivo organizar os clientes, os aparelhos cadastrados, as ordens de serviço e os técnicos responsáveis pelos reparos.
+
+### Entidades principais
+
+- Cliente: armazena os dados dos clientes.
+- Aparelho: registra os dispositivos pertencentes aos clientes.
+- Ordem de Serviço: registra os atendimentos e acompanha o status dos reparos.
+- Técnico: armazena os dados dos profissionais responsáveis pelos serviços.
+
+A modelagem inicial está documentada no arquivo [MODELAGEM.md](MODELAGEM.md).
+
+
 ## Sobre
 
 Aplicação fullstack (API Express em camadas + SQLite + frontend Bootstrap com Vanilla JS).
