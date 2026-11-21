@@ -1,13 +1,24 @@
 
 import express from 'express';
+import cors from 'cors';
 
 import clientesRouter from './routes/clientes.js';
 import aparelhosRouter from './routes/aparelhos.js';
+import tecnicosRouter from './routes/tecnicos.js';
+import ordensServicoRouter from './routes/ordensServico.js';
+
 
 import { logger } from './middleware/logger.js';
 import { errorHandler } from './middleware/errorHandler.js';
 
 const app = express();
+
+app.use(cors({
+  origin: [
+    'http://localhost:5500',
+    'http://127.0.0.1:5500'
+  ]
+}));
 
 // Middlewares globais
 app.use(express.json());
@@ -18,13 +29,21 @@ app.get('/', (req, res) => {
   res.json({
     api: 'Sistema de Assistência Técnica',
     versao: '1.0.0',
-    rotas: ['/clientes', '/aparelhos']
+    rotas: [
+      '/clientes',
+      '/aparelhos',
+      '/tecnicos',
+      '/ordens-servico'
+    ]
   });
 });
 
 // Rotas da API
 app.use('/clientes', clientesRouter);
 app.use('/aparelhos', aparelhosRouter);
+app.use('/tecnicos', tecnicosRouter);
+app.use('/ordens-servico', ordensServicoRouter);
+
 
 // Rota não encontrada
 app.use((req, res) => {

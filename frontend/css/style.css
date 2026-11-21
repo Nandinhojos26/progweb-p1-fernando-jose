@@ -1,0 +1,77 @@
+
+:root {
+  --cor-principal: #0d6efd;
+  --cor-escura: #212529;
+  --cor-fundo: #f4f6f9;
+}
+
+body {
+  background-color: var(--cor-fundo) !important;
+  font-family: Arial, sans-serif;
+}
+
+.navbar {
+  min-height: 65px;
+}
+
+.navbar-brand {
+  font-size: 1.35rem;
+  letter-spacing: 0.5px;
+}
+
+.card {
+  border-radius: 10px;
+  border: 1px solid #e2e6ea;
+  overflow: hidden;
+}
+
+.card-header {
+  background-color: #fff;
+  padding: 14px 16px;
+}
+
+.form-control,
+.form-select {
+  border-radius: 7px;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--cor-principal);
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+}
+
+.btn {
+  border-radius: 7px;
+}
+
+.nav-pills .nav-link {
+  border-radius: 7px;
+}
+
+.table th {
+  white-space: nowrap;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+footer {
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  main.container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .navbar-text {
+    display: none;
+  }
+
+  .card-body {
+    padding: 15px;
+  }
+}
