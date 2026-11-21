@@ -1,6 +1,7 @@
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,133 +20,195 @@
     rel="stylesheet"
   >
 
+  <!-- CSS personalizado -->
   <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body class="bg-light">
 
-  <!-- Menu principal -->
+
+
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid px-4">
+
       <a class="navbar-brand fw-bold" href="#">
-        <i class="bi bi-phone"></i> MORAL CELL
+        <i class="bi bi-phone"></i>
+        Moral Cell
       </a>
 
       <span class="navbar-text text-white-50">
         Sistema de Gestão de Assistência Técnica
       </span>
+
     </div>
   </nav>
 
   <main class="container py-4">
 
-    <!-- Título -->
+ 
+
     <div class="mb-4">
-      <h2 class="fw-bold">Painel Administrativo</h2>
+
+      <h2 class="fw-bold">
+        <i class="bi bi-speedometer2"></i>
+        Painel Administrativo
+      </h2>
+
       <p class="text-muted">
-        Gerencie clientes e aparelhos cadastrados.
+        Gerencie clientes, aparelhos, técnicos
+        e ordens de serviço.
       </p>
+
     </div>
 
-    <!-- Navegação -->
-    <ul class="nav nav-pills mb-4" id="menu">
+    <ul class="nav nav-pills mb-4 gap-2" id="menu">
+
+      <!-- CLIENTES -->
       <li class="nav-item">
         <button
           class="nav-link active"
           id="btn-clientes"
           type="button"
         >
-          <i class="bi bi-people"></i> Clientes
+          <i class="bi bi-people"></i>
+          Clientes
         </button>
       </li>
 
+      <!-- APARELHOS -->
       <li class="nav-item">
         <button
           class="nav-link"
           id="btn-aparelhos"
           type="button"
         >
-          <i class="bi bi-phone"></i> Aparelhos
+          <i class="bi bi-phone"></i>
+          Aparelhos
         </button>
       </li>
+
+      <!-- TÉCNICOS -->
+      <li class="nav-item">
+        <button
+          class="nav-link"
+          id="btn-tecnicos"
+          type="button"
+        >
+          <i class="bi bi-person-gear"></i>
+          Técnicos
+        </button>
+      </li>
+
+      <!-- ORDENS DE SERVIÇO -->
+      <li class="nav-item">
+        <button
+          class="nav-link"
+          id="btn-ordens"
+          type="button"
+        >
+          <i class="bi bi-clipboard-check"></i>
+          Ordens de Serviço
+        </button>
+      </li>
+
     </ul>
 
-    <!-- Mensagens -->
+   
+
     <div
       id="aviso"
       class="alert d-none"
       role="alert"
     ></div>
 
-    <!-- SEÇÃO CLIENTES -->
+   
+
     <section id="secao-clientes">
 
       <div class="row g-4">
 
-        <!-- Formulário -->
+        <!-- FORMULÁRIO CLIENTE -->
         <div class="col-lg-4">
+
           <div class="card shadow-sm">
+
             <div class="card-header fw-bold">
               <i class="bi bi-person-plus"></i>
               Cadastro de Cliente
             </div>
 
             <div class="card-body">
+
               <form id="form-cliente">
 
+                <!-- NOME -->
                 <div class="mb-3">
                   <label for="cli-nome" class="form-label">
                     Nome completo
                   </label>
+
                   <input
                     type="text"
                     id="cli-nome"
                     class="form-control"
+                    placeholder="Nome do cliente"
                     required
                   >
                 </div>
 
+                <!-- CPF -->
                 <div class="mb-3">
                   <label for="cli-cpf" class="form-label">
                     CPF
                   </label>
+
                   <input
                     type="text"
                     id="cli-cpf"
                     class="form-control"
+                    placeholder="000.000.000-00"
                     required
                   >
                 </div>
 
+                <!-- TELEFONE -->
                 <div class="mb-3">
                   <label for="cli-telefone" class="form-label">
                     Telefone
                   </label>
+
                   <input
                     type="tel"
                     id="cli-telefone"
                     class="form-control"
+                    placeholder="(83) 99999-9999"
                     required
                   >
                 </div>
 
+                <!-- EMAIL -->
                 <div class="mb-3">
                   <label for="cli-email" class="form-label">
                     E-mail
                   </label>
+
                   <input
                     type="email"
                     id="cli-email"
                     class="form-control"
+                    placeholder="cliente@email.com"
                   >
                 </div>
 
+                <!-- BOTÕES -->
                 <div class="d-flex gap-2">
+
                   <button
                     type="submit"
                     id="cli-salvar"
                     class="btn btn-primary"
                   >
+                    <i class="bi bi-check-circle"></i>
                     Salvar cliente
                   </button>
 
@@ -156,18 +219,26 @@
                   >
                     Cancelar
                   </button>
+
                 </div>
 
               </form>
+
             </div>
           </div>
         </div>
 
-        <!-- Tabela -->
+        <!-- TABELA CLIENTES -->
         <div class="col-lg-8">
+
           <div class="card shadow-sm">
+
             <div class="card-header d-flex justify-content-between align-items-center">
-              <strong>Clientes cadastrados</strong>
+
+              <strong>
+                <i class="bi bi-people"></i>
+                Clientes cadastrados
+              </strong>
 
               <button
                 type="button"
@@ -177,15 +248,21 @@
                 <i class="bi bi-arrow-clockwise"></i>
                 Atualizar
               </button>
+
             </div>
 
             <div class="card-body">
 
-              <div id="clientes-carregando" class="text-center py-4">
+              <!-- CARREGAMENTO -->
+              <div
+                id="clientes-carregando"
+                class="text-center py-4"
+              >
                 <div class="spinner-border text-primary"></div>
                 <p class="mt-2">Carregando clientes...</p>
               </div>
 
+              <!-- ERRO -->
               <div
                 id="clientes-erro"
                 class="alert alert-danger d-none"
@@ -193,6 +270,7 @@
                 <span id="clientes-erro-msg"></span>
               </div>
 
+              <!-- LISTA VAZIA -->
               <div
                 id="clientes-vazio"
                 class="text-center text-muted py-4 d-none"
@@ -200,9 +278,15 @@
                 Nenhum cliente cadastrado.
               </div>
 
-              <div id="clientes-sucesso" class="table-responsive d-none">
+              <!-- TABELA -->
+              <div
+                id="clientes-sucesso"
+                class="table-responsive d-none"
+              >
+
                 <table class="table table-hover align-middle">
-                  <thead>
+
+                  <thead class="table-light">
                     <tr>
                       <th>ID</th>
                       <th>Nome</th>
@@ -212,8 +296,11 @@
                       <th>Ações</th>
                     </tr>
                   </thead>
+
                   <tbody id="clientes-linhas"></tbody>
+
                 </table>
+
               </div>
 
             </div>
@@ -223,62 +310,77 @@
       </div>
     </section>
 
-    <!-- SEÇÃO APARELHOS -->
+
+
     <section id="secao-aparelhos" class="d-none">
 
       <div class="row g-4">
 
-        <!-- Formulário -->
+        <!-- FORMULÁRIO APARELHO -->
         <div class="col-lg-4">
+
           <div class="card shadow-sm">
+
             <div class="card-header fw-bold">
               <i class="bi bi-phone"></i>
               Cadastro de Aparelho
             </div>
 
             <div class="card-body">
+
               <form id="form-aparelho">
 
+                <!-- MARCA -->
                 <div class="mb-3">
                   <label for="ap-marca" class="form-label">
                     Marca
                   </label>
+
                   <input
                     type="text"
                     id="ap-marca"
                     class="form-control"
+                    placeholder="Ex: Apple"
                     required
                   >
                 </div>
 
+                <!-- MODELO -->
                 <div class="mb-3">
                   <label for="ap-modelo" class="form-label">
                     Modelo
                   </label>
+
                   <input
                     type="text"
                     id="ap-modelo"
                     class="form-control"
+                    placeholder="Ex: iPhone 15 Pro"
                     required
                   >
                 </div>
 
+                <!-- IMEI -->
                 <div class="mb-3">
                   <label for="ap-imei" class="form-label">
                     IMEI
                   </label>
+
                   <input
                     type="text"
                     id="ap-imei"
                     class="form-control"
+                    placeholder="IMEI do aparelho"
                     required
                   >
                 </div>
 
+                <!-- CLIENTE -->
                 <div class="mb-3">
                   <label for="ap-cliente" class="form-label">
                     Cliente responsável
                   </label>
+
                   <select
                     id="ap-cliente"
                     class="form-select"
@@ -290,12 +392,15 @@
                   </select>
                 </div>
 
+                <!-- BOTÕES -->
                 <div class="d-flex gap-2">
+
                   <button
                     type="submit"
                     id="ap-salvar"
                     class="btn btn-primary"
                   >
+                    <i class="bi bi-check-circle"></i>
                     Salvar aparelho
                   </button>
 
@@ -306,18 +411,26 @@
                   >
                     Cancelar
                   </button>
+
                 </div>
 
               </form>
+
             </div>
           </div>
         </div>
 
-        <!-- Tabela -->
+        <!-- TABELA APARELHOS -->
         <div class="col-lg-8">
+
           <div class="card shadow-sm">
+
             <div class="card-header d-flex justify-content-between align-items-center">
-              <strong>Aparelhos cadastrados</strong>
+
+              <strong>
+                <i class="bi bi-phone"></i>
+                Aparelhos cadastrados
+              </strong>
 
               <button
                 type="button"
@@ -327,15 +440,21 @@
                 <i class="bi bi-arrow-clockwise"></i>
                 Atualizar
               </button>
+
             </div>
 
             <div class="card-body">
 
-              <div id="aparelhos-carregando" class="text-center py-4">
+              <!-- CARREGAMENTO -->
+              <div
+                id="aparelhos-carregando"
+                class="text-center py-4"
+              >
                 <div class="spinner-border text-primary"></div>
                 <p class="mt-2">Carregando aparelhos...</p>
               </div>
 
+              <!-- ERRO -->
               <div
                 id="aparelhos-erro"
                 class="alert alert-danger d-none"
@@ -343,6 +462,7 @@
                 <span id="aparelhos-erro-msg"></span>
               </div>
 
+              <!-- LISTA VAZIA -->
               <div
                 id="aparelhos-vazio"
                 class="text-center text-muted py-4 d-none"
@@ -350,9 +470,15 @@
                 Nenhum aparelho cadastrado.
               </div>
 
-              <div id="aparelhos-sucesso" class="table-responsive d-none">
+              <!-- TABELA -->
+              <div
+                id="aparelhos-sucesso"
+                class="table-responsive d-none"
+              >
+
                 <table class="table table-hover align-middle">
-                  <thead>
+
+                  <thead class="table-light">
                     <tr>
                       <th>ID</th>
                       <th>Marca</th>
@@ -362,8 +488,11 @@
                       <th>Ações</th>
                     </tr>
                   </thead>
+
                   <tbody id="aparelhos-linhas"></tbody>
+
                 </table>
+
               </div>
 
             </div>
@@ -373,19 +502,484 @@
       </div>
     </section>
 
+    <section id="secao-tecnicos" class="d-none">
+
+      <div class="row g-4">
+
+        <!-- FORMULÁRIO TÉCNICO -->
+        <div class="col-lg-4">
+
+          <div class="card shadow-sm">
+
+            <div class="card-header bg-dark text-white">
+              <h5 class="mb-0">
+                <i class="bi bi-person-gear"></i>
+                Cadastro de Técnico
+              </h5>
+            </div>
+
+            <div class="card-body">
+
+              <form id="form-tecnico">
+
+                <!-- ID PARA EDIÇÃO -->
+                <input type="hidden" id="tec-id">
+
+                <!-- NOME -->
+                <div class="mb-3">
+                  <label for="tec-nome" class="form-label">
+                    Nome completo
+                  </label>
+
+                  <input
+                    type="text"
+                    id="tec-nome"
+                    class="form-control"
+                    placeholder="Nome do técnico"
+                    required
+                  >
+                </div>
+
+                <!-- TELEFONE -->
+                <div class="mb-3">
+                  <label for="tec-telefone" class="form-label">
+                    Telefone
+                  </label>
+
+                  <input
+                    type="tel"
+                    id="tec-telefone"
+                    class="form-control"
+                    placeholder="(83) 99999-9999"
+                  >
+                </div>
+
+                <!-- ESPECIALIDADE -->
+                <div class="mb-3">
+                  <label for="tec-especialidade" class="form-label">
+                    Especialidade
+                  </label>
+
+                  <input
+                    type="text"
+                    id="tec-especialidade"
+                    class="form-control"
+                    placeholder="Ex: Manutenção de iPhone"
+                  >
+                </div>
+
+                <!-- BOTÕES -->
+                <div class="d-grid gap-2">
+
+                  <button
+                    type="submit"
+                    id="tec-salvar"
+                    class="btn btn-primary"
+                  >
+                    <i class="bi bi-check-circle"></i>
+                    Salvar Técnico
+                  </button>
+
+                  <button
+                    type="button"
+                    id="tec-cancelar"
+                    class="btn btn-outline-secondary"
+                  >
+                    <i class="bi bi-x-circle"></i>
+                    Cancelar edição
+                  </button>
+
+                </div>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- TABELA TÉCNICOS -->
+        <div class="col-lg-8">
+
+          <div class="card shadow-sm">
+
+            <div class="card-header d-flex justify-content-between align-items-center">
+
+              <strong>
+                <i class="bi bi-people"></i>
+                Técnicos cadastrados
+              </strong>
+
+              <button
+                type="button"
+                id="tec-recarregar"
+                class="btn btn-sm btn-outline-primary"
+              >
+                <i class="bi bi-arrow-clockwise"></i>
+                Atualizar
+              </button>
+
+            </div>
+
+            <div class="card-body">
+
+              <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                  <thead class="table-light">
+                    <tr>
+                      <th>ID</th>
+                      <th>Nome</th>
+                      <th>Telefone</th>
+                      <th>Especialidade</th>
+                      <th>Ações</th>
+                    </tr>
+                  </thead>
+
+                  <tbody id="tecnicos-linhas">
+
+                    <tr>
+                      <td
+                        colspan="5"
+                        class="text-center text-muted py-4"
+                      >
+                        Nenhum técnico cadastrado.
+                      </td>
+                    </tr>
+
+                  </tbody>
+
+                </table>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <section id="secao-ordens" class="d-none">
+
+      <div class="row g-4">
+
+        <!-- FORMULÁRIO OS -->
+        <div class="col-lg-5">
+
+          <div class="card shadow-sm">
+
+            <div class="card-header bg-dark text-white">
+
+              <h5 class="mb-0">
+                <i class="bi bi-tools"></i>
+                Cadastro de Ordem de Serviço
+              </h5>
+
+            </div>
+
+            <div class="card-body">
+
+              <form id="form-os">
+
+                <!-- ID OCULTO -->
+                <input type="hidden" id="os-id">
+
+                <!-- APARELHO -->
+                <div class="mb-3">
+
+                  <label for="os-aparelho" class="form-label">
+                    Aparelho
+                  </label>
+
+                  <select
+                    id="os-aparelho"
+                    class="form-select"
+                    required
+                  >
+                    <option value="">
+                      Selecione um aparelho
+                    </option>
+                  </select>
+
+                </div>
+
+                <!-- TÉCNICO RESPONSÁVEL -->
+                <div class="mb-3">
+
+                  <label for="os-tecnico" class="form-label">
+                    Técnico responsável
+                  </label>
+
+                  <select
+                    id="os-tecnico"
+                    class="form-select"
+                  >
+                    <option value="">
+                      Não atribuído
+                    </option>
+                  </select>
+
+                  <div class="form-text">
+                    Selecione um técnico cadastrado.
+                  </div>
+
+                </div>
+
+                <!-- PROBLEMA -->
+                <div class="mb-3">
+
+                  <label for="os-problema" class="form-label">
+                    Problema relatado
+                  </label>
+
+                  <textarea
+                    id="os-problema"
+                    class="form-control"
+                    rows="3"
+                    placeholder="Descreva o defeito do aparelho..."
+                    required
+                  ></textarea>
+
+                </div>
+
+                <!-- VALOR E GARANTIA -->
+                <div class="row">
+
+                  <div class="col-md-6 mb-3">
+
+                    <label for="os-valor" class="form-label">
+                      Valor do orçamento (R$)
+                    </label>
+
+                    <div class="input-group">
+
+                      <span class="input-group-text">
+                        R$
+                      </span>
+
+                      <input
+                        type="number"
+                        id="os-valor"
+                        class="form-control"
+                        min="0"
+                        step="0.01"
+                        value="0"
+                        required
+                      >
+
+                    </div>
+
+                  </div>
+
+                  <div class="col-md-6 mb-3">
+
+                    <label for="os-garantia" class="form-label">
+                      Garantia (dias)
+                    </label>
+
+                    <input
+                      type="number"
+                      id="os-garantia"
+                      class="form-control"
+                      min="0"
+                      step="1"
+                      value="90"
+                      required
+                    >
+
+                  </div>
+
+                </div>
+
+                <!-- APROVAÇÃO -->
+                <div class="mb-3">
+
+                  <label for="os-aprovacao" class="form-label">
+                    Aprovação do orçamento
+                  </label>
+
+                  <select
+                    id="os-aprovacao"
+                    class="form-select"
+                  >
+
+                    <option value="em_orcamento">
+                      Em orçamento
+                    </option>
+
+                    <option value="aprovado">
+                      Serviço aprovado
+                    </option>
+
+                    <option value="nao_aprovado">
+                      Serviço não aprovado
+                    </option>
+
+                  </select>
+
+                </div>
+
+                <!-- STATUS -->
+                <div class="mb-3">
+
+                  <label for="os-status" class="form-label">
+                    Status do reparo
+                  </label>
+
+                  <select
+                    id="os-status"
+                    class="form-select"
+                  >
+
+                    <option value="aberta">
+                      Aberta
+                    </option>
+
+                    <option value="em_reparo">
+                      Em reparo
+                    </option>
+
+                    <option value="finalizada">
+                      Finalizada
+                    </option>
+
+                    <option value="entregue">
+                      Entregue
+                    </option>
+
+                    <option value="cancelada">
+                      Cancelada
+                    </option>
+
+                  </select>
+
+                  <div class="form-text">
+                    O orçamento precisa estar aprovado
+                    para iniciar o reparo.
+                  </div>
+
+                </div>
+
+                <!-- BOTÕES -->
+                <div class="d-grid gap-2">
+
+                  <button
+                    type="submit"
+                    id="os-salvar"
+                    class="btn btn-primary"
+                  >
+                    <i class="bi bi-check-circle"></i>
+                    Salvar Ordem de Serviço
+                  </button>
+
+                  <button
+                    type="button"
+                    id="os-cancelar"
+                    class="btn btn-outline-secondary"
+                  >
+                    <i class="bi bi-x-circle"></i>
+                    Cancelar edição
+                  </button>
+
+                </div>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- LISTAGEM DE OS -->
+        <div class="col-lg-7">
+
+          <div class="card shadow-sm">
+
+            <div class="card-header d-flex justify-content-between align-items-center">
+
+              <strong>
+                <i class="bi bi-clipboard-check"></i>
+                Ordens de Serviço
+              </strong>
+
+              <button
+                type="button"
+                id="os-recarregar"
+                class="btn btn-sm btn-outline-primary"
+              >
+                <i class="bi bi-arrow-clockwise"></i>
+                Atualizar
+              </button>
+
+            </div>
+
+            <div class="card-body">
+
+              <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                  <thead class="table-light">
+
+                    <tr>
+                      <th>OS</th>
+                      <th>Aparelho</th>
+                      <th>Valor</th>
+                      <th>Aprovação</th>
+                      <th>Status</th>
+                      <th>Ações</th>
+                    </tr>
+
+                  </thead>
+
+                  <tbody id="os-linhas">
+
+                    <tr>
+                      <td
+                        colspan="6"
+                        class="text-center text-muted py-4"
+                      >
+                        Nenhuma OS cadastrada.
+                      </td>
+                    </tr>
+
+                  </tbody>
+
+                </table>
+
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
   </main>
 
   <footer class="text-center text-muted py-4">
-    Moral Cell — Sistema de Gestão de Assistência Técnica
+
+    <small>
+      <i class="bi bi-phone"></i>
+      Moral Cell — Sistema de Gestão de Assistência Técnica
+    </small>
+
   </footer>
 
-  <!-- Bootstrap JS -->
+  <!-- BOOTSTRAP JAVASCRIPT -->
   <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
   ></script>
 
-  <!-- JavaScript da aplicação -->
-  <script type="module" src="./js/main.js"></script>
+  <!-- JAVASCRIPT PRINCIPAL -->
+  <script
+    type="module"
+    src="./js/main.js"
+  ></script>
 
 </body>
 </html>
