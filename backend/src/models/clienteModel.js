@@ -1,53 +1,73 @@
 
-let clientes = [];
-let proximoId = 1;
+import { db } from '../db.js';
 
 export const clienteModel = {
 
   listar() {
-    return clientes;
+    return db.prepare(
+      'SELECT * FROM clientes ORDER BY id'
+    ).all();
   },
 
   buscarPorId(id) {
-    return clientes.find(c => c.id === id) ?? null;
+    return db.prepare(
+      'SELECT * FROM clientes WHERE id = ?'
+    ).get(id) ?? null;
   },
 
   existeCpf(cpf) {
-    return clientes.some(c => c.cpf === cpf);
+    const cliente = db.prepare(
+      'SELECT 1 FROM clientes WHERE cpf = ?'
+    ).get(cpf);
+
+    return cliente !== undefined;
   },
 
   inserir({ nome, cpf, telefone, email }) {
-    const novo = {
-      id: proximoId++,
+    const resultado = db.prepare(`
+      INSERT INTO clientes (nome, cpf, telefone, email)
+      VALUES (?, ?, ?, ?)
+    `).run(
       nome,
       cpf,
-      telefone: telefone ?? null,
-      email: email ?? null
-    };
+      telefone ?? null,
+      email ?? null
+    );
 
-    clientes.push(novo);
-    return novo;
+    return this.buscarPorId(Number(resultado.lastInsertRowid));
   },
 
   atualizar(id, dados) {
-    const i = clientes.findIndex(c => c.id === id);
+    const atual = this.buscarPorId(id);
 
-    if (i === -1) return null;
+    if (!atual) return null;
 
-    clientes[i] = {
-      ...clientes[i],
+    const novo = {
+      ...atual,
       ...dados,
       id
     };
 
-    return clientes[i];
+    db.prepare(`
+      UPDATE clientes
+      SET nome = ?, cpf = ?, telefone = ?, email = ?
+      WHERE id = ?
+    `).run(
+      novo.nome,
+      novo.cpf,
+      novo.telefone ?? null,
+      novo.email ?? null,
+      id
+    );
+
+    return this.buscarPorId(id);
   },
 
   remover(id) {
-    const antes = clientes.length;
+    const resultado = db.prepare(
+      'DELETE FROM clientes WHERE id = ?'
+    ).run(id);
 
-    clientes = clientes.filter(c => c.id !== id);
-
-    return clientes.length < antes;
+    return resultado.changes > 0;
   }
 };

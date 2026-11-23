@@ -1,43 +1,68 @@
 
-let registros = [];
-let sequencia = 1;
+import { db } from '../db.js';
 
 export const tecnicoModel = {
-  listar: () => [...registros],
 
-  buscarPorId: (id) =>
-    registros.find(t => t.id === id) ?? null,
-
-  criar: (dados) => {
-    const novo = {
-      id: sequencia++,
-      ...dados
-    };
-
-    registros.push(novo);
-    return novo;
+  listar() {
+    return db.prepare(`
+      SELECT * FROM tecnicos ORDER BY id
+    `).all();
   },
 
-  atualizar: (id, dados) => {
-    const i = registros.findIndex(t => t.id === id);
+  buscarPorId(id) {
+    return db.prepare(`
+      SELECT * FROM tecnicos WHERE id = ?
+    `).get(id) ?? null;
+  },
 
-    if (i < 0) return null;
+  criar(dados) {
+    const resultado = db.prepare(`
+      INSERT INTO tecnicos
+        (nome, telefone, especialidade)
+      VALUES (?, ?, ?)
+    `).run(
+      dados.nome,
+      dados.telefone ?? '',
+      dados.especialidade ?? ''
+    );
 
-    registros[i] = {
-      ...registros[i],
+    return this.buscarPorId(
+      Number(resultado.lastInsertRowid)
+    );
+  },
+
+  atualizar(id, dados) {
+    const atual = this.buscarPorId(id);
+
+    if (!atual) return null;
+
+    const novo = {
+      ...atual,
       ...dados,
       id
     };
 
-    return registros[i];
+    db.prepare(`
+      UPDATE tecnicos
+      SET nome = ?,
+          telefone = ?,
+          especialidade = ?
+      WHERE id = ?
+    `).run(
+      novo.nome,
+      novo.telefone,
+      novo.especialidade,
+      id
+    );
+
+    return this.buscarPorId(id);
   },
 
-  remover: (id) => {
-    const i = registros.findIndex(t => t.id === id);
+  remover(id) {
+    const resultado = db.prepare(`
+      DELETE FROM tecnicos WHERE id = ?
+    `).run(id);
 
-    if (i < 0) return false;
-
-    registros.splice(i, 1);
-    return true;
+    return resultado.changes > 0;
   }
 };
