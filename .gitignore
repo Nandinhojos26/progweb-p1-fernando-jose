@@ -1,2 +1,5 @@
 node_modules/
 .env
+banco.db
+*.db-wal
+*.db-shm
