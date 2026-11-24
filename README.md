@@ -235,14 +235,17 @@ Os dados são armazenados no arquivo configurado pela variável de ambiente `DB_
 
 ## 10. Deploy
 
-O projeto será publicado utilizando:
+O sistema está publicado e funcionando em produção.
 
-- **Render:** hospedagem da API Express.
-- **Vercel:** hospedagem do frontend.
+- Render: hospedagem da API Express.
+- Vercel: hospedagem do frontend Bootstrap.
+- SQLite: persistência dos dados.
+- CORS: comunicação autorizada entre frontend e backend.
 
-O frontend se comunicará com a API por meio de requisições HTTP usando Fetch API.
+Todos os testes funcionais realizados em produção foram aprovados.
 
-A origem autorizada será configurada pela variável `CORS_ORIGIN` no Render.
+O plano gratuito do Render utiliza armazenamento efêmero.
+Os dados de demonstração são recriados quando o banco está vazio.
 
 ## 11. Modelagem
 
