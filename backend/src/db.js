@@ -78,3 +78,77 @@ db.exec(`
       REFERENCES tecnicos(id)
   );
 `);
+
+
+const { total } = db.prepare(
+  'SELECT COUNT(*) AS total FROM clientes'
+).get();
+
+// Insere dados fictícios somente quando o banco está vazio.
+if (total === 0) {
+  db.exec('BEGIN TRANSACTION');
+
+  try {
+    const cliente = db.prepare(`
+      INSERT INTO clientes (nome, cpf, telefone, email)
+      VALUES (?, ?, ?, ?)
+    `).run(
+      'Cliente Demonstração',
+      '11122233344',
+      '83999990000',
+      'cliente@exemplo.com'
+    );
+
+    const aparelho = db.prepare(`
+      INSERT INTO aparelhos (marca, modelo, imei, cliente_id)
+      VALUES (?, ?, ?, ?)
+    `).run(
+      'Apple',
+      'iPhone 15 Pro',
+      '111111111111111',
+      Number(cliente.lastInsertRowid)
+    );
+
+    const tecnico = db.prepare(`
+      INSERT INTO tecnicos (nome, telefone, especialidade)
+      VALUES (?, ?, ?)
+    `).run(
+      'Técnico Demonstração',
+      '83988880000',
+      'Manutenção de smartphones'
+    );
+
+    db.prepare(`
+      INSERT INTO ordens_servico (
+        aparelho_id,
+        cliente_id,
+        tecnico_id,
+        descricao_problema,
+        valor_orcamento,
+        aprovacao,
+        status,
+        garantia,
+        data_entrada,
+        data_conclusao
+      )
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `).run(
+      Number(aparelho.lastInsertRowid),
+      Number(cliente.lastInsertRowid),
+      Number(tecnico.lastInsertRowid),
+      'Aparelho não está carregando',
+      350,
+      'aprovado',
+      'em_reparo',
+      90,
+      new Date().toISOString(),
+      null
+    );
+
+    db.exec('COMMIT');
+    console.log('Dados de demonstração criados.');
+  } catch (erro) {
+    db.exec('ROLLBACK');
+    throw erro;
+  }
+}
