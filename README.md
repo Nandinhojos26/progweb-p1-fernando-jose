@@ -19,7 +19,7 @@ O projeto utiliza uma arquitetura em camadas, separando a interface, as regras d
 - **Repositório:** https://github.com/Nandinhojos26/progweb-p1-fernando-jose
 - **Frontend (Vercel):** https://moral-cell.vercel.app
 - **Backend (Render):** https://moral-cell-api.onrender.com
-- **Vídeo de apresentação:** A adicionar após a gravação.
+- **Vídeo de apresentação:** https://www.youtube.com/watch?v=b1cByk9jZKk
 
 **Observação:** No plano gratuito do Render, o servidor pode demorar para responder após um período de inatividade. O banco SQLite hospedado em disco efêmero pode ser recriado quando o serviço reiniciar.
 
